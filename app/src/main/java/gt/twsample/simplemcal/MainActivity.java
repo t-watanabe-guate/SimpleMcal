@@ -20,8 +20,9 @@ import gt.twsample.simplemcal.util.McalDate;
 
 public class MainActivity extends AppCompatActivity {
     private McalDate mcal;
-    private TextView g_date;
-    private TextView m_date;
+    private TextView g_date; // Gregorian Date
+    private TextView m_date; // Mayan Date
+    private TextView c_date; // Cholq'ij
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,11 +31,13 @@ public class MainActivity extends AppCompatActivity {
 
         g_date = (TextView)findViewById(R.id.gregorian_date);
         m_date = (TextView)findViewById(R.id.mcal_date);
+        c_date = (TextView)findViewById(R.id.cholqij);
         final GregorianCalendar g = new GregorianCalendar();
         g.setGregorianChange(new Date(Long.MIN_VALUE));
         mcal = new McalDate(g);
         g_date.setText(mcal.toGDate());
         m_date.setText(mcal.toMDate());
+        c_date.setText(mcal.toCholqij());
 
         // Set Calendar Date to Free Date Input
         setInputFreeDate(mcal.getCal());
@@ -50,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         // テキスト入力の年月日を反映するボタン
         Button set_free_year = (Button)findViewById(R.id.set_free_year);
         // テキスト入力の長期暦を反映するボタン
-        Button set_long_count = (Button)findViewById(R.id.set_long_count);
+        //Button set_long_count = (Button)findViewById(R.id.set_long_count);
         // テキスト入力の長期暦(全)を反映するボタン
         Button set_all_long_count = (Button)findViewById(R.id.set_all_long_count);
 
@@ -102,8 +105,10 @@ public class MainActivity extends AppCompatActivity {
                 );
                 g_date.setText(mcal.toGDate());
                 m_date.setText(mcal.toMDate());
+                c_date.setText(mcal.toCholqij());
             }
         });
+        /*
         set_long_count.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -124,8 +129,10 @@ public class MainActivity extends AppCompatActivity {
                     piktun, baktun, katun, tun, winal, kin);
                 g_date.setText(mcal.toGDate());
                 m_date.setText(mcal.toMDate());
+                c_date.setText(mcal.toCholqij());
             }
         });
+         */
         set_all_long_count.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -150,13 +157,16 @@ public class MainActivity extends AppCompatActivity {
                 mcal.updateBaseDateByLongCount(long_count_list);
                 g_date.setText(mcal.toGDate());
                 m_date.setText(mcal.toMDate());
+                c_date.setText(mcal.toCholqij());
             }
         });
     }
     public void setCalendarToAll(){
         g_date.setText(mcal.toGDate());
         m_date.setText(mcal.toMDate());
+        c_date.setText(mcal.toCholqij());
         setInputFreeDate(mcal.getCal());
+        setInputLongCount(mcal.toLongCountAsArray());
     }
     public void updateAllDates(Calendar cal) {
         updateMcal(cal);
@@ -164,8 +174,9 @@ public class MainActivity extends AppCompatActivity {
     }
     public void updateMcal(Calendar cal){
         mcal.updateBaseDate(cal);
-        m_date.setText(mcal.toMDate());
         g_date.setText(mcal.toGDate());
+        m_date.setText(mcal.toMDate());
+        c_date.setText(mcal.toCholqij());
     }
     public void setInputFreeDate(Calendar cal){
         final EditText input_year  = (EditText)findViewById(R.id.input_year);
@@ -175,6 +186,7 @@ public class MainActivity extends AppCompatActivity {
         input_month.setText(String.valueOf((cal.get(Calendar.MONTH)+1)));
         input_date.setText(String.valueOf(cal.get(Calendar.DATE)));
     }
+    /*
     public void setInputLongCount(int[] long_count_array) {
         final EditText input_piktun = (EditText)findViewById(R.id.input_piktun);
         final EditText input_baktun = (EditText)findViewById(R.id.input_baktun);
@@ -188,5 +200,16 @@ public class MainActivity extends AppCompatActivity {
         input_tun.setText(String.valueOf(long_count_array[3]));
         input_winal.setText(String.valueOf(long_count_array[4]));
         input_kin.setText(String.valueOf(long_count_array[5]));
+    }
+     */
+    public void setInputLongCount(int[] long_count_array) {
+        final EditText input_long_count = (EditText)findViewById(R.id.input_long_count);
+        input_long_count.setText(
+          String.valueOf(long_count_array[1]) + "." +
+          String.valueOf(long_count_array[2]) + "." +
+          String.valueOf(long_count_array[3]) + "." +
+          String.valueOf(long_count_array[4]) + "." +
+          String.valueOf(long_count_array[5])
+        );
     }
 }

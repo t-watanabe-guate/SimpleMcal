@@ -5,42 +5,54 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
+    android:gravity="top"
     android:background="#ccffff"
     tools:context="gt.twsample.simplemcal.MainActivity">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:textSize="25sp"
         android:textColor="#1e90ff"
         android:id="@+id/gregorian_date" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:textSize="25sp"
         android:textColor="#66cdaa"
         android:id="@+id/mcal_date" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="25sp"
+        android:textColor="#66cdaa"
+        android:id="@+id/cholqij" />
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:orientation="horizontal">
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/previous"
-            android:text="prev"/>
+            android:text="@string/prev"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/next"
-            android:text="next"/>
+            android:text="@string/next"/>
     </LinearLayout>
+
     <Button
+        android:id="@+id/set_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/set_date"
-        android:text="from calendar"/>
+        android:layout_gravity="center"
+        android:text="@string/label_from_calendar" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -77,6 +89,7 @@
 
     </LinearLayout>
 
+    <!--
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -168,6 +181,24 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:id="@+id/set_long_count"
         android:text="Update by Long Count"/>
+    -->
+
+    <EditText
+        android:id="@+id/input_long_count"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border"
+        android:layout_gravity="center"
+        android:gravity="center"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:id="@+id/set_all_long_count"
+        android:text="Update by Long Count(all)"/>
+
 </LinearLayout>

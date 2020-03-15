@@ -13,6 +13,12 @@ import java.util.Locale;
  */
 
 public class McalDate {
+    private static final String[] CHOLQIJ = {
+            "Imox", "Iq'", "Aq'ab'al", "K'at", "Kan",
+            "Kamey", "Kej", "Q'anil", "Toj", "Tz'i'",
+            "B'atz'", "Ey", "Aj", "I'x", "Tz'ikin",
+            "Ajmaq", "No'j", "Tijax", "Kawoq", "Ajpu'"};
+    private static final int[] CHOLQIJ_IK = {1,2,3,4,5,6,7,8,9,10,11,12,13};
     private static final String[] TZOLKIN_DATE = {
             "Imix", "I'k", "Ak'bal", "Kan", "Chickchan",
             "Kimi", "Manik'", "Lamat", "Muluk", "Ok",
@@ -44,6 +50,7 @@ public class McalDate {
     private double jd;
     private long gmt;
     private MessageFormat long_count_format = new MessageFormat("{0}.{1}.{2}.{3}.{4}");
+    private MessageFormat cholqij_format = new MessageFormat("{0}-{1}");
     private MessageFormat tzolkin_format = new MessageFormat("{0}-{1}");
     private MessageFormat haab_format    = new MessageFormat("{0}-{1}");
 
@@ -80,6 +87,13 @@ public class McalDate {
 
     public void previous_one() { this.update(-1); }
     public void next_one() { this.update(1); }
+
+    public String toCholqij(){
+        final long base = (long)jd - gmt;
+        final int tmonth = CHOLQIJ_IK[(int)((base + TZOLKIN_MONTH_HOSEI) % CHOLQIJ_IK.length)];
+        final String tdate  = CHOLQIJ[(int)((base + TZOLKIN_DATE_HOSEI) % CHOLQIJ.length)];
+        return cholqij_format.format(new Object[]{tmonth, tdate});
+    }
 
     public String toTzolkin(){
         final long base = (long)jd - gmt;

@@ -46,5 +46,6 @@ public class DatePickerDialogFragment extends DialogFragment
         MainActivity ma = (MainActivity)getActivity();
         ma.updateMcal(cal);
         ma.setInputFreeDate(cal);
+        ma.setCalendarToAll();
     }
 }
